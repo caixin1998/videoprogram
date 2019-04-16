@@ -1,0 +1,30 @@
+{
+	"version": "1.0",
+	"components": [
+		"Microsoft.VisualStudio.Workload.NativeDesktop",
+		"Microsoft.VisualStudio.Workload.Universal",
+		"Microsoft.VisualStudio.Workload.Python",
+		"Microsoft.VisualStudio.Workload.DataScience",
+		"microsoft.visualstudio.component.intellitrace.frontend",
+		"microsoft.visualstudio.component.debugger.justintime",
+		"microsoft.visualstudio.component.fsharp.desktop",
+		"microsoft.visualstudio.component.vc.diagnostictools",
+		"microsoft.visualstudio.component.vc.cmake.project",
+		"microsoft.visualstudio.component.vc.atl",
+		"microsoft.visualstudio.component.vc.testadapterforboosttest",
+		"microsoft.visualstudio.component.vc.testadapterforgoogletest",
+		"microsoft.component.vc.runtime.ucrtsdk",
+		"microsoft.visualstudio.component.windows81sdk",
+		"microsoft.visualstudio.componentgroup.windows10sdk.15063",
+		"microsoft.visualstudio.component.vc.140",
+		"microsoft.component.cookiecuttertools",
+		"microsoft.component.pythontools.web",
+		"component.cpython3.x64",
+		"component.anaconda3.x64",
+		"microsoft.visualstudio.component.rtools",
+		"microsoft.visualstudio.component.rhost",
+		"microsoft.visualstudio.component.r.open",
+		"microsoft.visualstudio.component.vc.runtimes.x86.x64.spectre",
+		"component.microsoft.windows.driverkit"
+	]
+}

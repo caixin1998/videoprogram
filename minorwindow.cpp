@@ -9,7 +9,7 @@ MinorWindow::MinorWindow(QWidget *parent) :
     mplaywindow = new showImage(this);
     ui->setupUi(this);
     this->setCentralWidget(mplaywindow);
-    connect(videoSurface,SIGNAL(showImage(QImage)),this,SLOT(onShowImage(QImage)));
+    connect(videoSurface,SIGNAL(showImage(QImage)),mplaywindow,SLOT(onShowImage(QImage)));
    // player->setVideoOutput(videoWidget_m);
 
 }
@@ -17,13 +17,6 @@ MinorWindow::MinorWindow(QWidget *parent) :
 MinorWindow::~MinorWindow()
 {
     delete ui;
-    delete mplaywindow;
 }
 
-void MinorWindow::onShowImage(QImage image)
-{
-    mplaywindow->loadimage(&image);
-    mplaywindow->repaint();
-    mplaywindow->show();
 
-}

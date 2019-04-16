@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     camera =new cameraplayer;
     camera->resize(availableGeometry.width() / 2, availableGeometry.height() / 3*2);
     startcamera();
+	
 }
 
 MainWindow::~MainWindow()
@@ -32,19 +33,47 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::startcamera()
 {
-    worker=new CameraThread;
-    worker->moveToThread(&camerathread);
-    connect(&camerathread, &QThread::finished, worker, &QObject::deleteLater);
-    connect(worker->cameraSurface,SIGNAL(showImage(QImage)),camera->mplaywindow,SLOT(onShowImage(QImage)));
-    connect(&camerathread,&QThread::started, worker, &CameraThread:: start);
-    //worker->camera->setViewfinder(camera->viewfinder);
+    worker1=new CameraThread;
+    worker1->moveToThread(&camerathread);
+    connect(&camerathread, &QThread::finished, worker1, &QObject::deleteLater);
+    connect(worker1,SIGNAL(showImage(QImage)),camera->mplaywindow,SLOT(onShowImage(QImage)));
+    connect(worker1,SIGNAL(showImage(QImage)),camera->camerascreen->mcamerawindow1,SLOT(onShowImage(QImage)));
+    connect(&camerathread,&QThread::started, worker1, &CameraThread:: start);
+    //connect(ui->pushButton ,&QAbstractButton::clicked , worker1, &CameraThread::start_play);
+  //  connect(camera->returnbutton ,&QAbstractButton::clicked , worker1, &CameraThread::stop_play);
+    connect(camera->returnbutton ,&QAbstractButton::clicked , this, &MainWindow :: camera_return_main);
+	//connect(player->m_mediaPlayer,SIGNAL(stateChanged(QMediaPlayer::State state)),this ,SLOT(recordcamera(QMediaPlayer::State state)));
+    connect(player->m_mediaPlayer,&QMediaPlayer::stateChanged,this ,&MainWindow::recordcamera);
     camerathread.start();
+    timer->start();
+    worker1->start_play();
+    
+}
 
+void MainWindow :: camera_return_main()
+{
+	camera->camerascreen->hide();
+	camera -> hide();
+    this -> show();
 }
 
 void MainWindow::on_pushButton_clicked()
-{
-
+{ 
+   // camera->mplaywindow->showi.load("D:/Users/caixin/Documents/videoplayer/cover.png");
     camera->show();
+    camera->camerascreen->showFullScreen();
     this->hide();
+}
+
+void MainWindow :: recordcamera (QMediaPlayer::State state)
+{
+    switch(state) {
+        case QMediaPlayer::PlayingState:
+            worker1->start_record();
+            break;
+        default:
+            worker1->stop_record();
+            break;
+    }
+ 
 }

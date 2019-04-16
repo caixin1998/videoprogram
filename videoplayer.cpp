@@ -1,52 +1,4 @@
-/****************************************************************************
-**
-** Copyright (C) 2017 The Qt Company Ltd.
-** Contact: https://www.qt.io/licensing/
-**
-** This file is part of the examples of the Qt Toolkit.
-**
-** $QT_BEGIN_LICENSE:BSD$
-** Commercial License Usage
-** Licensees holding valid commercial Qt licenses may use this file in
-** accordance with the commercial license agreement provided with the
-** Software or, alternatively, in accordance with the terms contained in
-** a written agreement between you and The Qt Company. For licensing terms
-** and conditions see https://www.qt.io/terms-conditions. For further
-** information use the contact form at https://www.qt.io/contact-us.
-**
-** BSD License Usage
-** Alternatively, you may use this file under the terms of the BSD license
-** as follows:
-**
-** "Redistribution and use in source and binary forms, with or without
-** modification, are permitted provided that the following conditions are
-** met:
-**   * Redistributions of source code must retain the above copyright
-**     notice, this list of conditions and the following disclaimer.
-**   * Redistributions in binary form must reproduce the above copyright
-**     notice, this list of conditions and the following disclaimer in
-**     the documentation and/or other materials provided with the
-**     distribution.
-**   * Neither the name of The Qt Company Ltd nor the names of its
-**     contributors may be used to endorse or promote products derived
-**     from this software without specific prior written permission.
-**
-**
-** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
-**
-** $QT_END_LICENSE$
-**
-****************************************************************************/
+
 
 #include "videoplayer.h"
 #include"showimage.h"
@@ -57,23 +9,32 @@
 #include <qdebug.h>
 #include<iostream>
 #include "mainwindow.h"
+
+
+string  childid = "default";
 extern MainWindow *w;
 using namespace  std;
 QString buffer ="D:/chrome_download/";
 VideoPlayer::VideoPlayer(QWidget *parent)
     : QWidget(parent)
 {
+    text = new QLineEdit(this);
+	QString init = "眼睛位置(0,0,0)     视点位置(0,0)    瞳孔大小 0";
+    text->setText(init);
     m_mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
     playwindow = new showImage(this);
     videoSurface = new VideoSurface;
+	
     medialist=new QMediaPlaylist;
     medialist->addMedia(QMediaContent(QUrl(buffer+"SampleVideo.mp4")));
     medialist->addMedia(QMediaContent(QUrl(buffer+"SampleVideo2.mp4")));
     medialist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
     m_mediaPlayer->setPlaylist(medialist);
+	
     QAbstractButton *addButton = new QPushButton(tr("Add.."));
     QAbstractButton *OpenButton = new QPushButton(tr("Open"));
     QAbstractButton *ReturnButton = new QPushButton(tr("return"));
+    QAbstractButton *inputButton = new QPushButton(tr("child id"));
     playlist = new QComboBox(this);
     playlist->addItem(QString::fromUtf8("playlist"));
     playlist->addItem(QString::fromUtf8("simplevideo"));
@@ -81,6 +42,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     connect(addButton, &QAbstractButton::clicked, this, &VideoPlayer::openFile);
     connect(OpenButton, &QAbstractButton::clicked, this, &VideoPlayer::playfile);
     connect(ReturnButton, &QAbstractButton::clicked,this, &VideoPlayer::returnmain);
+    connect(inputButton, &QAbstractButton::clicked,this, &VideoPlayer::inputdialog);
     m_playButton = new QPushButton;
     //m_playButton->setEnabled(false);
     m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPlay));
@@ -100,6 +62,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
     QBoxLayout *controlLayout = new QHBoxLayout;
     controlLayout->setMargin(0);
+    controlLayout->addWidget(inputButton);
     controlLayout->addWidget(addButton);
     controlLayout->addWidget(playlist);
     controlLayout->addWidget(OpenButton);
@@ -110,6 +73,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     clayout->addWidget(m_positionSlider);
 
     QBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(text);
     layout->addWidget(playwindow);
     layout->addLayout(clayout);
     layout->addLayout(controlLayout);
@@ -133,6 +97,11 @@ VideoPlayer::VideoPlayer(QWidget *parent)
         m->setGeometry(desktop->screenGeometry(1));
 
    }
+
+    string dirname= ".\\output\\"+childid; 
+    string command = "mkdir -p " + dirname;
+    system(command.c_str());
+   
 }
 
 VideoPlayer::~VideoPlayer()
@@ -166,6 +135,8 @@ void VideoPlayer::setUrl(const QUrl &url)
     setWindowFilePath(*s);
     playlist->addItem(getfile(s));
     medialist->addMedia(url);
+	
+	
 }
 
 void VideoPlayer::play()
@@ -224,13 +195,19 @@ void VideoPlayer::handleError()
 }
 QString VideoPlayer::getfile(QString* s)
 {
-
-     return s->section(QRegExp("[./]"), -2, -2).trimmed() ;
+	if (s != NULL)
+		return s->section(QRegExp("[./]"), -2, -2).trimmed();
+	else
+		return NULL;
 }
 void VideoPlayer::playfile()
 {
+	
     int index=playlist->currentIndex();
-    medialist->setCurrentIndex(index-1);
+	if (index>0)
+		medialist->setCurrentIndex(index-1);
+	else 
+		medialist->setCurrentIndex(0);
     m_mediaPlayer->play();
     m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
 }
@@ -240,4 +217,24 @@ void VideoPlayer::returnmain()
     this->hide();
     m->hide();
     m_mediaPlayer->pause();
+}
+
+void VideoPlayer::inputdialog()
+{
+    dia =new QInputDialog(this);
+    dia->setWindowTitle("child ID");
+    dia->setLabelText("Please input child ID:");
+    dia->setInputMode(QInputDialog::TextInput);
+    if(dia->exec() == QInputDialog::Accepted)
+    {
+        childid = dia->textValue().toStdString();
+        string dirname= ".\\output\\"+childid; 
+        string command = "mkdir -p " + dirname;
+        system(command.c_str());
+    }
+}
+
+void VideoPlayer::receiveMeaage(QString msg)
+{
+    text->setText(msg);
 }

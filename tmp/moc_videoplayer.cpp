@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_VideoPlayer_t {
-    QByteArrayData data[16];
-    char stringdata0[189];
+    QByteArrayData data[19];
+    char stringdata0[219];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,24 +37,27 @@ QT_MOC_LITERAL(2, 21, 0), // ""
 QT_MOC_LITERAL(3, 22, 4), // "play"
 QT_MOC_LITERAL(4, 27, 8), // "playfile"
 QT_MOC_LITERAL(5, 36, 10), // "returnmain"
-QT_MOC_LITERAL(6, 47, 17), // "mediaStateChanged"
-QT_MOC_LITERAL(7, 65, 19), // "QMediaPlayer::State"
-QT_MOC_LITERAL(8, 85, 5), // "state"
-QT_MOC_LITERAL(9, 91, 15), // "positionChanged"
-QT_MOC_LITERAL(10, 107, 8), // "position"
-QT_MOC_LITERAL(11, 116, 15), // "durationChanged"
-QT_MOC_LITERAL(12, 132, 8), // "duration"
-QT_MOC_LITERAL(13, 141, 11), // "setPosition"
-QT_MOC_LITERAL(14, 153, 23), // "slider_progress_clicked"
-QT_MOC_LITERAL(15, 177, 11) // "handleError"
+QT_MOC_LITERAL(6, 47, 11), // "inputdialog"
+QT_MOC_LITERAL(7, 59, 13), // "receiveMeaage"
+QT_MOC_LITERAL(8, 73, 3), // "msg"
+QT_MOC_LITERAL(9, 77, 17), // "mediaStateChanged"
+QT_MOC_LITERAL(10, 95, 19), // "QMediaPlayer::State"
+QT_MOC_LITERAL(11, 115, 5), // "state"
+QT_MOC_LITERAL(12, 121, 15), // "positionChanged"
+QT_MOC_LITERAL(13, 137, 8), // "position"
+QT_MOC_LITERAL(14, 146, 15), // "durationChanged"
+QT_MOC_LITERAL(15, 162, 8), // "duration"
+QT_MOC_LITERAL(16, 171, 11), // "setPosition"
+QT_MOC_LITERAL(17, 183, 23), // "slider_progress_clicked"
+QT_MOC_LITERAL(18, 207, 11) // "handleError"
 
     },
     "VideoPlayer\0openFile\0\0play\0playfile\0"
-    "returnmain\0mediaStateChanged\0"
-    "QMediaPlayer::State\0state\0positionChanged\0"
-    "position\0durationChanged\0duration\0"
-    "setPosition\0slider_progress_clicked\0"
-    "handleError"
+    "returnmain\0inputdialog\0receiveMeaage\0"
+    "msg\0mediaStateChanged\0QMediaPlayer::State\0"
+    "state\0positionChanged\0position\0"
+    "durationChanged\0duration\0setPosition\0"
+    "slider_progress_clicked\0handleError"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +67,7 @@ static const uint qt_meta_data_VideoPlayer[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      10,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,26 +75,30 @@ static const uint qt_meta_data_VideoPlayer[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   64,    2, 0x0a /* Public */,
-       3,    0,   65,    2, 0x0a /* Public */,
-       4,    0,   66,    2, 0x0a /* Public */,
-       5,    0,   67,    2, 0x0a /* Public */,
-       6,    1,   68,    2, 0x08 /* Private */,
-       9,    1,   71,    2, 0x08 /* Private */,
-      11,    1,   74,    2, 0x08 /* Private */,
-      13,    1,   77,    2, 0x08 /* Private */,
-      14,    0,   80,    2, 0x08 /* Private */,
-      15,    0,   81,    2, 0x08 /* Private */,
+       1,    0,   74,    2, 0x0a /* Public */,
+       3,    0,   75,    2, 0x0a /* Public */,
+       4,    0,   76,    2, 0x0a /* Public */,
+       5,    0,   77,    2, 0x0a /* Public */,
+       6,    0,   78,    2, 0x0a /* Public */,
+       7,    1,   79,    2, 0x0a /* Public */,
+       9,    1,   82,    2, 0x08 /* Private */,
+      12,    1,   85,    2, 0x08 /* Private */,
+      14,    1,   88,    2, 0x08 /* Private */,
+      16,    1,   91,    2, 0x08 /* Private */,
+      17,    0,   94,    2, 0x08 /* Private */,
+      18,    0,   95,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 7,    8,
-    QMetaType::Void, QMetaType::LongLong,   10,
-    QMetaType::Void, QMetaType::LongLong,   12,
-    QMetaType::Void, QMetaType::Int,   10,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    8,
+    QMetaType::Void, 0x80000000 | 10,   11,
+    QMetaType::Void, QMetaType::LongLong,   13,
+    QMetaType::Void, QMetaType::LongLong,   15,
+    QMetaType::Void, QMetaType::Int,   13,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -108,18 +115,20 @@ void VideoPlayer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 1: _t->play(); break;
         case 2: _t->playfile(); break;
         case 3: _t->returnmain(); break;
-        case 4: _t->mediaStateChanged((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
-        case 5: _t->positionChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
-        case 6: _t->durationChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
-        case 7: _t->setPosition((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->slider_progress_clicked(); break;
-        case 9: _t->handleError(); break;
+        case 4: _t->inputdialog(); break;
+        case 5: _t->receiveMeaage((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 6: _t->mediaStateChanged((*reinterpret_cast< QMediaPlayer::State(*)>(_a[1]))); break;
+        case 7: _t->positionChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 8: _t->durationChanged((*reinterpret_cast< qint64(*)>(_a[1]))); break;
+        case 9: _t->setPosition((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 10: _t->slider_progress_clicked(); break;
+        case 11: _t->handleError(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
-        case 4:
+        case 6:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<int*>(_a[0]) = -1; break;
             case 0:
@@ -159,13 +168,13 @@ int VideoPlayer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 10)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 10)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 10;
+        _id -= 12;
     }
     return _id;
 }

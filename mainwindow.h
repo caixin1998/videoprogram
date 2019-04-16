@@ -21,13 +21,14 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     VideoPlayer *player;
     cameraplayer *camera;
-    CameraThread *worker;
+    CameraThread *worker1;
     ~MainWindow();
 
 private slots:
     void on_pushButton_4_clicked();
-
+    void camera_return_main();
     void on_pushButton_clicked();
+    void recordcamera(QMediaPlayer::State);
 
 private:
     Ui::MainWindow *ui;

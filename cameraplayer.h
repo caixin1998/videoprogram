@@ -2,10 +2,10 @@
 #define CAMERAPLAYER_H
 
 #include <QWidget>
-#include "rotateimage.h"
+#include "showimage.h"
 #include<QAbstractButton>
 #include<QPushButton>
-#include "videosurface.h"
+#include "camerascreen.h"
 #include "camerathread.h"
 
 QT_BEGIN_NAMESPACE
@@ -18,13 +18,15 @@ class cameraplayer:public QWidget
 public:
     cameraplayer(QWidget *parent = nullptr);
     QAbstractButton *beginbutton;
-    rshowImage * mplaywindow;
-    QCameraViewfinder *viewfinder;
-private:
+    showImage * mplaywindow;
     QAbstractButton *returnbutton;
+    CameraScreen * camerascreen;
+   // QCameraViewfinder *viewfinder;
+private:
+    
 
 private slots:
-    void returnmain();
+    
 };
 
 #endif // CAMERAPLAYER_H

@@ -18,8 +18,7 @@ public:
 private:
     Ui::MinorWindow *ui;
     showImage * mplaywindow;
-private slots:
-    void onShowImage(QImage);
+
 };
 
 #endif // MINORWINDOW_H

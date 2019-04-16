@@ -52,6 +52,7 @@
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
+    <Import Project="PropertySheet.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
@@ -160,7 +161,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)\videowidget.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -198,6 +199,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cameraplayer.cpp" />
+    <ClCompile Include="camerascreen.cpp" />
     <ClCompile Include="camerathread.cpp" />
     <ClCompile Include="customslider.cpp" />
     <ClCompile Include="main.cpp" />
@@ -240,6 +242,15 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">tmp\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
+    <QtMoc Include="camerascreen.h">
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\tmp\moc_%(Filename).cpp</OutputFile>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\QT\5.12.2\MSVC2017_64\include;.\..\QT\5.12.2\MSVC2017_64\include\QtMultimediaWidgets;.\..\QT\5.12.2\MSVC2017_64\include\QtMultimedia;.\..\QT\5.12.2\MSVC2017_64\include\QtWidgets;.\..\QT\5.12.2\MSVC2017_64\include\QtGui;.\..\QT\5.12.2\MSVC2017_64\include\QtANGLE;.\..\QT\5.12.2\MSVC2017_64\include\QtNetwork;.\..\QT\5.12.2\MSVC2017_64\include\QtCore;.\tmp;C:\VulkanSDK\1.0.51.0\include;.\..\QT\5.12.2\MSVC2017_64\mkspecs\win32-msvc</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</Define>
+      <OutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\tmp\moc_%(Filename).cpp</OutputFile>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;.\..\QT\5.12.2\MSVC2017_64\include;.\..\QT\5.12.2\MSVC2017_64\include\QtMultimediaWidgets;.\..\QT\5.12.2\MSVC2017_64\include\QtMultimedia;.\..\QT\5.12.2\MSVC2017_64\include\QtWidgets;.\..\QT\5.12.2\MSVC2017_64\include\QtGui;.\..\QT\5.12.2\MSVC2017_64\include\QtANGLE;.\..\QT\5.12.2\MSVC2017_64\include\QtNetwork;.\..\QT\5.12.2\MSVC2017_64\include\QtCore;.\tmp;C:\VulkanSDK\1.0.51.0\include;.\..\QT\5.12.2\MSVC2017_64\mkspecs\win32-msvc</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">_WINDOWS;UNICODE;_UNICODE;WIN32;_ENABLE_EXTENDED_ALIGNED_STORAGE;WIN64;QT_NO_DEBUG;QT_MULTIMEDIAWIDGETS_LIB;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</Define>
+    </QtMoc>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ui_mainwindow.h" />
     <ClInclude Include="ui_minorscreen.h" />
   </ItemGroup>
@@ -257,6 +268,9 @@
     <None Include="cover.jpg" />
     <QtRcc Include="cover.qrc">
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="videowidget.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

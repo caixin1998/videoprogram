@@ -1,23 +1,23 @@
 #include "showimage.h"
-
+#include <qdebug.h>
 
 
 showImage::showImage(QWidget *parent):QWidget(parent)
 {
-    showi=new QImage;
-    showi->load("D:/Users/caixin/Documents/videoplayer/cover.png");
+    
+    showi.load("D:/Users/caixin/Documents/videoplayer/cover.png");
 
 }
 showImage::~showImage(){
-    delete showi;
+    
 }
 
 void showImage::paintEvent(QPaintEvent *e)
 {
     static QPainter p(this);
-	if (showi == NULL) return;
-    iw = showi->width();
-    ih = showi->height();
+	if (showi.isNull()) return;
+    iw = showi.width();
+    ih = showi.height();
     rw = this->width();
     rh = this->height();
     int w=0,h=0;
@@ -59,27 +59,24 @@ void showImage::paintEvent(QPaintEvent *e)
             h=rh;
         }
     }
+	if (w <= 0 || h <= 0) return;
     QRect Temp(0,0,w,h);
 
     p.begin(this);
-    p.drawImage(Temp,*showi);
+    p.drawImage(Temp,showi);
     p.end();
+	//this->show();
 }
 
-void showImage::loadimage(QImage* image)
+void showImage::loadimage(QImage image)
 {
-    if(showi==NULL){
-        qDebug()<<"error2!";
-        return;
-    }
-    showi=image;
+
+    showi=image.copy();
 }
 
 void showImage::onShowImage(QImage image)
 {
 
-    this->loadimage(&image);
-    this->repaint();
-    this->show();
-
+		this->loadimage(image);
+		this->repaint();
 }

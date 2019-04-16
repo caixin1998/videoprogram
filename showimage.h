@@ -13,10 +13,10 @@ class showImage:public QWidget
 public:
     showImage(QWidget *parent = 0);
     ~showImage();
-    QImage* showi;
+    QImage showi;
 
     void paintEvent(QPaintEvent *e);
-    void loadimage(QImage* image);
+    void loadimage(QImage image);
     int rw,rh,iw,ih;
 private slots:
     void onShowImage(QImage image);

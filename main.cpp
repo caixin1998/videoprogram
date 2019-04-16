@@ -9,12 +9,23 @@
 #include <QtCore/QDir>
 #include "minorscreen.h"
 #include "mainwindow.h"
+
+#include <iostream>     // std::cout
+#include <cstdlib>    
+#include <new>          
 QDesktopWidget *desktop;
 MainWindow * w;
+QTimer * timer;
+
+
+
+
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+	timer = new QTimer();
+    timer->setInterval(20);
     QCoreApplication::setApplicationName("Video Widget Example");
     QCoreApplication::setOrganizationName("QtProject");
     QGuiApplication::setApplicationDisplayName(QCoreApplication::applicationName());
@@ -24,10 +35,6 @@ int main(int argc, char *argv[])
     const QRect availableGeometry = desktop->availableGeometry(w);
     w->resize(availableGeometry.width() / 2, availableGeometry.height() / 3*2);
     w->show();
-    /*
-    minorscreen m;
-    m.setGeometry(desktop->screenGeometry(1));
-    m.showFullScreen();
-    */
+  
     return app.exec();
 }

@@ -77,6 +77,9 @@
     <ClCompile Include="videosurface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="camerascreen.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="cameraplayer.h">
@@ -106,22 +109,14 @@
     <QtMoc Include="videosurface.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="camerascreen.h">
+      <Filter>Generated Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    
-    
-    
-    
-    
     <CustomBuild Include="tmp\moc_predefs.h.cbt">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    
-    
-    
-    
-    
-    
     <ClInclude Include="ui_mainwindow.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -144,5 +139,13 @@
     <QtRcc Include="cover.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="videowidget.rc" />
   </ItemGroup>
 </Project>
