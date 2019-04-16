@@ -22,6 +22,7 @@ public:
     
     std::string outDir;
     int rate;
+    int mark;
     Mat frame;
     QImage image;
 

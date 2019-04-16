@@ -7,7 +7,7 @@ CameraThread::CameraThread(QObject *parent) : QObject(parent)
     
     
     index = 0;
-	
+	mark  = 0;
 	//outDir = "D:\\Qtopencv\\output\\";
     //start();
 	//capture.open(0);
@@ -33,34 +33,44 @@ void CameraThread::start()
             connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
             
         }
+
     }
+    connect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
 }
 
 void CameraThread::start_record()
 {
-    connect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
+   // connect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
+   mark =1;
 }
 
 void CameraThread::stop_record()
 {
-    disconnect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
+  //  disconnect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
+  mark = 0;
 }
 
 void CameraThread::record_camera()
 {
-	outDir = ".\\output\\"+childid+"\\";
-    std::string str;
-    str = outDir + std::to_string(index++) +".jpg";
-	std::cout << str;
-    Mat outMat;
-    cvtColor(frame, outMat, CV_BGR2RGB);
-	imwrite(str, outMat);
+    if(mark==1)
+    {
+        outDir = ".\\output\\"+childid+"\\";
+        std::string str;
+        str = outDir + std::to_string(index++) +".jpg";
+	    std::cout << str+"\n";
+        Mat outMat;
+        cvtColor(frame, outMat, CV_BGR2RGB);
+	    imwrite(str, outMat);
+
+    }
+
 	
 }
 
 void CameraThread::play_video()
 {
-	    emit showImage(image);
+	
+    emit showImage(image);
 }
 
 void CameraThread::start_play()
