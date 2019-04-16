@@ -69,11 +69,11 @@ void MainWindow :: recordcamera (QMediaPlayer::State state)
 {
     switch(state) {
         case QMediaPlayer::PlayingState:
-            worker1->mark =1;
+            worker1->start_record();
             break;
         default:
             //timer->stop();
-            worker1->mark =0;
+            worker1->stop_record();
             break;
     }
  

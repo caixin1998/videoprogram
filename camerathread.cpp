@@ -21,7 +21,8 @@ void CameraThread::start()
 
    // capture.open("D:/chrome_download/SampleVideo2.mp4"); 
 	capture.open(0);
-    
+	while(!capture.isOpened())
+		capture.open(0);
     if (capture.isOpened())
     {
         rate= capture.get(CV_CAP_PROP_FPS);
@@ -31,11 +32,11 @@ void CameraThread::start()
             image = Mat2QImage(frame);
                //set timer match with FPS
             connect(timer, SIGNAL(timeout()), this, SLOT(nextFrame()));
-            
+			connect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
         }
 
     }
-    connect(timer, SIGNAL(timeout()), this, SLOT(record_camera()));
+    
 }
 
 void CameraThread::start_record()
