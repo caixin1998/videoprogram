@@ -2,6 +2,7 @@
 #include<cv.h>
 
 extern string childid;
+extern string videoname;
 CameraThread::CameraThread(QObject *parent) : QObject(parent)
 {
     
@@ -16,13 +17,13 @@ CameraThread::CameraThread(QObject *parent) : QObject(parent)
 
 void CameraThread::start()
 {
-   //if (capture.isOpened())
-   //     capture.release(); 
+   if (capture.isOpened())
+        capture.release(); 
 
    // capture.open("D:/chrome_download/SampleVideo2.mp4"); 
 	capture.open(0);
 	while(!capture.isOpened())
-		capture.open(0);
+		capture.open(0 + CV_CAP_DSHOW);
     if (capture.isOpened())
     {
         rate= capture.get(CV_CAP_PROP_FPS);
@@ -55,14 +56,16 @@ void CameraThread::record_camera()
 {
     if(mark==1)
     {
-        outDir = ".\\output\\"+childid+"\\";
-        std::string str;
-        str = outDir + std::to_string(index++) +".jpg";
-	    std::cout << str+"\n";
+        //outDir = ".\\output\\"+childid+"\\"+videoname+"\\";
+        //std::string str;
+        //str = outDir + std::to_string(index++) +".jpg";
+	    //std::cout << str+"\n";
         Mat outMat;
         cvtColor(frame, outMat, CV_BGR2RGB);
-	    imwrite(str, outMat);
-
+	   // imwrite(str, outMat);
+        vframe[index++]=outMat;
+        if(index>9998)
+            index = 0;
     }
 
 	

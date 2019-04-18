@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+extern string childid;
+extern string videoname;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -9,10 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     player = new VideoPlayer;
     const QRect availableGeometry = desktop->availableGeometry(player);
     player->resize(availableGeometry.width() / 2, availableGeometry.height() / 3*2);
+    connect(player->saveButton, &QAbstractButton::clicked, this, &MainWindow::save_video);
     camera =new cameraplayer;
     camera->resize(availableGeometry.width() / 2, availableGeometry.height() / 3*2);
     startcamera();
-	
+	connect(timer, SIGNAL(timeout()), this, SLOT(do_record()));
 }
 
 MainWindow::~MainWindow()
@@ -77,4 +81,34 @@ void MainWindow :: recordcamera (QMediaPlayer::State state)
             break;
     }
  
+}
+
+void MainWindow :: do_record()
+{
+    
+    if(player->m_mediaPlayer->state()==QMediaPlayer::PlayingState)
+    {
+        string filename= ".\\output\\"+childid+"\\"+videoname+"\\record.txt";
+        outfile.open(filename,ios::app);
+        int a=player->m_mediaPlayer->position();
+        outfile<<a<<endl;
+        cout<<player->m_mediaPlayer->position();
+        outfile.close();
+    }   
+
+}
+
+
+void MainWindow::save_video()
+{
+    string outDir1 = ".\\output\\"+childid+"\\"+videoname+"\\camera1.avi";
+    VideoWriter writer(outDir1, CV_FOURCC('M', 'J', 'P', 'G'), 25.0, Size(640, 480));  
+    //writer << frame;
+    for(int i=0;i<worker1->index;i++)
+    {
+        writer << worker1->vframe[i];
+    }  
+    worker1->index = 0 ;
+    //cout<< outDir1<<endl;
+
 }

@@ -27,6 +27,7 @@ public:
     void setUrl(const QUrl &url);
     QMediaPlayer* m_mediaPlayer;
     QString getfile(QString*);
+    QAbstractButton *saveButton;
     minorscreen *m;
 public slots:
     void openFile();
@@ -43,10 +44,10 @@ private slots:
     void setPosition(int position);
     void slider_progress_clicked();
     void handleError();
-
 private:
     QLineEdit *text;
     QAbstractButton *m_playButton;
+
     customSlider *m_positionSlider;
     QLabel *m_errorLabel;
     QComboBox* playlist;

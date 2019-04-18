@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+#include<fstream>
 #include <QMainWindow>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDesktopWidget>
@@ -29,10 +29,13 @@ private slots:
     void camera_return_main();
     void on_pushButton_clicked();
     void recordcamera(QMediaPlayer::State);
+    void do_record();
+    void save_video();
 
 private:
     Ui::MainWindow *ui;
     void startcamera();
+    ofstream outfile;
 };
 
 #endif // MAINWINDOW_H

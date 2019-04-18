@@ -5,7 +5,7 @@
 showImage::showImage(QWidget *parent):QWidget(parent)
 {
     
-    showi.load("D:/Users/caixin/Documents/videoplayer/cover.png");
+    showi.load("./cover2.png");
 
 }
 showImage::~showImage(){

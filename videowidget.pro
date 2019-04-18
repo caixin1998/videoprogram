@@ -26,3 +26,13 @@ OBJECTS_DIR += debug
 UI_DIR += .
 RCC_DIR += $(Configuration)
 include(videowidget.pri)
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../opencv/build/x64/vc14/lib/ -lopencv_world346
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../opencv/build/x64/vc14/lib/ -lopencv_world346d
+else:unix: LIBS += -L$$PWD/../opencv/build/x64/vc14/lib/ -lopencv_world346
+
+INCLUDEPATH += $$PWD/../opencv/build/x64/vc14
+INCLUDEPATH += $$PWD/../opencv/build/include/opencv
+INCLUDEPATH += $$PWD/../opencv/build/include
+INCLUDEPATH += $$PWD/../opencv/build/include/opencv2
+DEPENDPATH += $$PWD/../opencv/build/x64/vc14

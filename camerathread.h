@@ -24,7 +24,9 @@ public:
     int rate;
     int mark;
     Mat frame;
+    Mat vframe[10000];
     QImage image;
+    int index;
 
     void start_record();
     void stop_record();
@@ -43,7 +45,7 @@ signals:
     void showImage(QImage img);
 
 private:
-    int index;
+    
     volatile bool isStop;
     QImage  Mat2QImage(Mat);
 

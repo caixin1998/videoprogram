@@ -12,9 +12,10 @@
 
 
 string  childid = "default";
+string  videoname = "Samplevideo";
 extern MainWindow *w;
 using namespace  std;
-QString buffer ="D:/chrome_download/";
+QString buffer ="./";
 VideoPlayer::VideoPlayer(QWidget *parent)
     : QWidget(parent)
 {
@@ -27,18 +28,20 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 	
     medialist=new QMediaPlaylist;
     medialist->addMedia(QMediaContent(QUrl(buffer+"SampleVideo.mp4")));
-    medialist->addMedia(QMediaContent(QUrl(buffer+"SampleVideo2.mp4")));
-    medialist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    //medialist->addMedia(QMediaContent(QUrl(buffer+"SampleVideo2.mp4")));
+    //medialist->setPlaybackMode(QMediaPlaylist::CurrentItemInLoop);
+    medialist->setPlaybackMode(QMediaPlaylist::CurrentItemOnce);
     m_mediaPlayer->setPlaylist(medialist);
 	
     QAbstractButton *addButton = new QPushButton(tr("Add.."));
     QAbstractButton *OpenButton = new QPushButton(tr("Open"));
     QAbstractButton *ReturnButton = new QPushButton(tr("return"));
     QAbstractButton *inputButton = new QPushButton(tr("child id"));
+                saveButton        = new QPushButton(tr("save"));      
     playlist = new QComboBox(this);
     playlist->addItem(QString::fromUtf8("playlist"));
-    playlist->addItem(QString::fromUtf8("simplevideo"));
-    playlist->addItem(QString::fromUtf8("simplevideo2"));
+    playlist->addItem(QString::fromUtf8("samplevideo"));
+    //playlist->addItem(QString::fromUtf8("samplevideo2"));
     connect(addButton, &QAbstractButton::clicked, this, &VideoPlayer::openFile);
     connect(OpenButton, &QAbstractButton::clicked, this, &VideoPlayer::playfile);
     connect(ReturnButton, &QAbstractButton::clicked,this, &VideoPlayer::returnmain);
@@ -67,6 +70,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
     controlLayout->addWidget(playlist);
     controlLayout->addWidget(OpenButton);
     controlLayout->addWidget(ReturnButton);
+     controlLayout->addWidget(saveButton);
 
     QBoxLayout *clayout = new QHBoxLayout;
     clayout->addWidget(m_playButton);
@@ -98,7 +102,7 @@ VideoPlayer::VideoPlayer(QWidget *parent)
 
    }
 
-    string dirname= ".\\output\\"+childid; 
+    string dirname= ".\\output\\"+childid+"\\"+videoname+"\\"; 
     string command = "mkdir -p " + dirname;
     system(command.c_str());
    
@@ -208,6 +212,7 @@ void VideoPlayer::playfile()
 		medialist->setCurrentIndex(index-1);
 	else 
 		medialist->setCurrentIndex(0);
+    videoname = playlist->currentText().toStdString();
     m_mediaPlayer->play();
     m_playButton->setIcon(style()->standardIcon(QStyle::SP_MediaPause));
 }
@@ -228,7 +233,7 @@ void VideoPlayer::inputdialog()
     if(dia->exec() == QInputDialog::Accepted)
     {
         childid = dia->textValue().toStdString();
-        string dirname= ".\\output\\"+childid; 
+        string dirname= ".\\output\\"+childid+"\\"+videoname+"\\"; 
         string command = "mkdir -p " + dirname;
         system(command.c_str());
     }
@@ -238,3 +243,8 @@ void VideoPlayer::receiveMeaage(QString msg)
 {
     text->setText(msg);
 }
+/*
+void VideoPlayer::record_duration()
+{
+    record->duration = m_mediaPlayer->duration;
+}*/
