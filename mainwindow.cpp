@@ -91,7 +91,7 @@ void MainWindow :: do_record()
         string filename= ".\\output\\"+childid+"\\"+videoname+"\\record.txt";
         outfile.open(filename,ios::app);
         int a=player->m_mediaPlayer->position();
-        outfile<<a<<endl;
+        //outfile<<a<<endl;
         cout<<player->m_mediaPlayer->position();
         outfile.close();
     }   
